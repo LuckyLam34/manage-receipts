@@ -59,7 +59,6 @@ class Main extends React.Component<ILocalProps, any> {
 
 const mapStateToProps = (state: IState) => {
   let { loadingFlagGlobal, receipts, currentPage, totalPages, filter } = state;
-  console.log(state);
 
   return {
     loadingFlagGlobal,

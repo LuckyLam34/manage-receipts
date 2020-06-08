@@ -24,7 +24,6 @@ class Filter extends React.Component<IProps, any> {
       filterText: value,
     });
 
-    console.log(value);
     clearTimeout(this.timer);
     this.timer = setTimeout(
       () => this.props.filterReceipts(this.props.currentPage, value),
@@ -51,7 +50,6 @@ class Filter extends React.Component<IProps, any> {
 
 const mapStateToProps = (state: IState) => {
   const { currentPage, filter } = state;
-  console.log(state);
 
   return {
     currentPage,

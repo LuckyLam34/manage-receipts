@@ -1,0 +1,8 @@
+@import './variables';
+
+.swal-button--confirm {
+  background-color: $primary;
+  &:hover {
+    background-color: $primaryHover !important;
+  }
+}

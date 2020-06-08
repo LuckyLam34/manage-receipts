@@ -6,6 +6,8 @@ import {
 } from './action-types';
 import { RequestService } from '../../services/request.service';
 import { IReceipt, IPageInfo } from '../../constants/interfaces';
+import swal from 'sweetalert';
+import { MESSAGES } from './../../constants/messages';
 
 export const requestReceipts = (currentPage: number, filterText: string) => {
   return (dispatch: any) => {
@@ -21,10 +23,12 @@ export const requestReceipts = (currentPage: number, filterText: string) => {
           dispatch(setFilter(filterText));
           dispatch(receivePageInfo({ currentPage, totalPages }));
           dispatch(receiveReceipts(res.recipes));
-          console.log(res);
         }
       })
-      .catch(() => dispatch(loading(false)))
+      .catch(() => {
+        swal(MESSAGES.errorTitle, MESSAGES.errorGeneral, 'error');
+        dispatch(loading(false));
+      })
       .finally(() => dispatch(loading(false)));
   };
 };
@@ -39,7 +43,10 @@ export const deleteReceipt = (
       .then((res) => {
         dispatch(requestReceipts(currentPage, filterText));
       })
-      .catch(() => dispatch(loading(false)))
+      .catch(() => {
+        swal(MESSAGES.errorTitle, MESSAGES.errorGeneral, 'error');
+        dispatch(loading(false));
+      })
       .finally(() => dispatch(loading(false)));
   };
 };

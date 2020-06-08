@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from './Main';
 import * as serviceWorker from './serviceWorker';
-import '@fortawesome/fontawesome-free/css/all.css';
 import './style/style.scss';
 import { store } from './redux/store';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
