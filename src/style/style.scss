@@ -1,0 +1,9 @@
+@import './global';
+@import './custom-bootstrap-variables';
+@import './main';
+@import './variables';
+@import './loader';
+
+body {
+  background-color: $primaryBgColor;
+}

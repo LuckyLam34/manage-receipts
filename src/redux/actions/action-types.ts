@@ -1,0 +1,2 @@
+export const LOADING_FLAG = 'LOADING_FLAG';
+export const RECEIVE_RECEIPTS = 'RECEIVE_RECEIPTS';

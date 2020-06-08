@@ -1,0 +1,8 @@
+@import './variables';
+
+$theme-colors: (
+  'primary': $yellow,
+  'danger': $danger,
+);
+
+@import 'node_modules/bootstrap/scss/bootstrap';
