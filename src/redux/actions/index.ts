@@ -39,15 +39,26 @@ export const deleteReceipt = (
   filterText: string
 ) => {
   return (dispatch: any) => {
-    RequestService.deleteReceipt(id)
-      .then((res) => {
-        dispatch(requestReceipts(currentPage, filterText));
-      })
-      .catch(() => {
-        swal(MESSAGES.errorTitle, MESSAGES.errorGeneral, 'error');
-        dispatch(loading(false));
-      })
-      .finally(() => dispatch(loading(false)));
+    swal({
+      title: MESSAGES.deleteConfirm,
+      text: MESSAGES.deleteMsg,
+      icon: 'warning',
+      buttons: ['Cancel', 'Delete'],
+      dangerMode: true,
+    }).then((agree) => {
+      if (agree) {
+        RequestService.deleteReceipt(id)
+          .then(() => {
+            swal(MESSAGES.successTitle, MESSAGES.successMsg, 'success');
+            dispatch(requestReceipts(currentPage, filterText));
+          })
+          .catch(() => {
+            swal(MESSAGES.errorTitle, MESSAGES.errorGeneral, 'error');
+            dispatch(loading(false));
+          })
+          .finally(() => dispatch(loading(false)));
+      }
+    });
   };
 };
 
