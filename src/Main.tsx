@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ReceiptList } from './containers/ReceiptList';
+import { ReceiptList } from './components/ReceiptList';
 import { IState, IReceipt } from './constants/interfaces';
 import { requestReceipts } from './redux/actions';
+import Filter from './containers/Filter';
 
 interface ILocalProps {
   loadingFlagGlobal: boolean;
@@ -37,6 +38,7 @@ class Main extends React.Component<ILocalProps, any> {
           <div className="jumbotron">
             <h1 className="display-4">Receipts Overview</h1>
             <hr className="my-4" />
+            <Filter />
             <ReceiptList receipts={this.props.receipts} />
           </div>
         </div>

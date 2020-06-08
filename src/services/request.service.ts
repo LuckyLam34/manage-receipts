@@ -1,8 +1,8 @@
 import { API_PATH } from '../constants/api-urls';
 
 export class RequestService {
-  public static getReceipts() {
-    return fetch(API_PATH.getReceipts).then(handleErrors);
+  public static getReceipts(params: string = '') {
+    return fetch(API_PATH.getReceipts + params).then(handleErrors);
   }
 }
 

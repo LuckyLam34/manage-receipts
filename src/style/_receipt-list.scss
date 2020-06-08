@@ -1,7 +1,7 @@
 @import './variables';
 
 .receipt-list {
-  .w-90 {
+  .w-l {
     width: 90%;
     & > p {
       white-space: nowrap;
@@ -10,7 +10,25 @@
     }
   }
 
-  .w-10 {
+  .w-r {
     width: 10%;
+  }
+
+  @media (max-width: $mediumDevices) {
+    .w-l {
+      width: 85%;
+    }
+    .w-r {
+      width: 15%;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .w-l {
+      width: 80%;
+    }
+    .w-r {
+      width: 20%;
+    }
   }
 }

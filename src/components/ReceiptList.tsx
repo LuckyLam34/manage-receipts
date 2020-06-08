@@ -15,12 +15,12 @@ export const ReceiptList = ({ receipts }: any) => (
     {receipts.map((item: IReceipt, idx: number) => (
       <div key={idx}>
         <div className="receipt-list">
-          <div className="d-flex">
-            <div className="w-90">
+          <div className="d-flex align-items-center">
+            <div className="w-l pr-3">
               <h4>{item.title}</h4>
               <p>{item.description}</p>
             </div>
-            <div className="w-10">
+            <div className="w-r">
               <button
                 type="button"
                 // onClick={() => removeFridgeItem(fridgeItem.id)}
