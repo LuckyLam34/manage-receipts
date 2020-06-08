@@ -4,11 +4,15 @@ import { ReceiptList } from './components/ReceiptList';
 import { IState, IReceipt } from './constants/interfaces';
 import { requestReceipts } from './redux/actions';
 import Filter from './containers/Filter';
+import { Paging } from './components/Paging';
 
 interface ILocalProps {
   loadingFlagGlobal: boolean;
   requestReceipts: any;
   receipts: IReceipt[];
+  currentPage: number;
+  totalPages: number;
+  filter: string;
 }
 
 class Main extends React.Component<ILocalProps, any> {
@@ -17,7 +21,7 @@ class Main extends React.Component<ILocalProps, any> {
   }
 
   componentDidMount() {
-    this.props.requestReceipts();
+    this.props.requestReceipts(this.props.currentPage, this.props.filter);
   }
 
   render() {
@@ -38,8 +42,13 @@ class Main extends React.Component<ILocalProps, any> {
           <div className="jumbotron">
             <h1 className="display-4">Receipts Overview</h1>
             <hr className="my-4" />
-            <Filter />
-            <ReceiptList receipts={this.props.receipts} />
+            {!this.props.loadingFlagGlobal ? (
+              <>
+                <Filter />
+                <ReceiptList receipts={this.props.receipts} />
+                <Paging {...this.props} />
+              </>
+            ) : null}
           </div>
         </div>
       </div>
@@ -48,16 +57,21 @@ class Main extends React.Component<ILocalProps, any> {
 }
 
 const mapStateToProps = (state: IState) => {
-  let { loadingFlagGlobal, receipts } = state;
+  let { loadingFlagGlobal, receipts, currentPage, totalPages, filter } = state;
+  console.log(state);
 
   return {
     loadingFlagGlobal,
     receipts,
+    currentPage,
+    totalPages,
+    filter,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  requestReceipts: () => dispatch(requestReceipts()),
+  requestReceipts: (currentPage: number, filter: string) =>
+    dispatch(requestReceipts(currentPage, filter)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

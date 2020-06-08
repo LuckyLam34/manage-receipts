@@ -2,16 +2,20 @@ import {
   LOADING_FLAG,
   RECEIVE_RECEIPTS,
   RECEIVE_PAGE_INFO,
+  SET_FILTER,
 } from './action-types';
 import { RequestService } from '../../services/request.service';
 import { IReceipt, IPageInfo } from '../../constants/interfaces';
 
-export const requestReceipts = () => {
+export const requestReceipts = (currentPage: number, filterText: string) => {
   return (dispatch: any) => {
+    const params = getUrlWithParams({ page: currentPage, search: filterText });
     dispatch(loading(true));
-    RequestService.getReceipts()
+    RequestService.getReceipts(params)
       .then((res) => {
         const { currentPage, totalPages } = res;
+        console.log(filterText);
+        dispatch(setFilter(filterText));
         dispatch(receivePageInfo({ currentPage, totalPages }));
         dispatch(receiveReceipts(res.recipes));
         console.log(res);
@@ -21,22 +25,16 @@ export const requestReceipts = () => {
   };
 };
 
-export const filterReceipts = (searchText: string) => {
-  const params = searchText ? `/?search=${searchText}` : '';
+const getUrlWithParams = (obj: any) => {
+  let url = '';
 
-  return (dispatch: any) => {
-    dispatch(loading(true));
-    RequestService.getReceipts(params)
-      .then((res) => {
-        const { currentPage, totalPages } = res;
-        dispatch(receivePageInfo({ currentPage, totalPages }));
-        dispatch(receiveReceipts(res.recipes));
+  for (let k in obj) {
+    if (obj[k]) {
+      url += `&${k}=${obj[k]}`;
+    }
+  }
 
-        console.log(res);
-      })
-      .catch(() => dispatch(loading(false)))
-      .finally(() => dispatch(loading(false)));
-  };
+  return url ? `?${url.slice(1, url.length)}` : '';
 };
 
 export const loading = (isLoading: boolean) => ({
@@ -52,4 +50,9 @@ export const receiveReceipts = (receipts: IReceipt[]) => ({
 export const receivePageInfo = (pageInfo: IPageInfo) => ({
   type: RECEIVE_PAGE_INFO,
   data: pageInfo,
+});
+
+export const setFilter = (filter: string) => ({
+  type: SET_FILTER,
+  data: filter,
 });

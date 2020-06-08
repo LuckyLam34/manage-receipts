@@ -33,5 +33,6 @@ export const ReceiptList = ({ receipts }: any) => (
         </div>
       </div>
     ))}
+    {receipts.length === 0 ? <div>No data</div> : ''}
   </div>
 );

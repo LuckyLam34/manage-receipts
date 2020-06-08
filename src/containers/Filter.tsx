@@ -1,17 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../constants/interfaces';
-import { filterReceipts } from '../redux/actions';
+import { requestReceipts } from '../redux/actions';
 
 interface IProps {
   filterReceipts: any;
+  currentPage: number;
+  filter: string;
 }
 
 class Filter extends React.Component<IProps, any> {
+  timer: any;
+
   constructor(props: any) {
     super(props);
     this.state = {
-      filterText: '',
+      filterText: this.props.filter,
     };
   }
 
@@ -21,7 +25,11 @@ class Filter extends React.Component<IProps, any> {
     });
 
     console.log(value);
-    this.props.filterReceipts(value);
+    clearTimeout(this.timer);
+    this.timer = setTimeout(
+      () => this.props.filterReceipts(this.props.currentPage, value),
+      500
+    );
   };
 
   render() {
@@ -29,10 +37,8 @@ class Filter extends React.Component<IProps, any> {
       <div>
         <div className="form-group">
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
             placeholder="Filter..."
             value={this.state.filterText}
             onChange={(e) => this.filter(e.target.value)}
@@ -43,10 +49,19 @@ class Filter extends React.Component<IProps, any> {
   }
 }
 
-const mapStateToProps = (state: IState) => ({});
+const mapStateToProps = (state: IState) => {
+  const { currentPage, filter } = state;
+  console.log(state);
+
+  return {
+    currentPage,
+    filter,
+  };
+};
 
 const mapDispatchToProps = (dispatch: any) => ({
-  filterReceipts: (filterText: string) => dispatch(filterReceipts(filterText)),
+  filterReceipts: (currentPage: number, filterText: string) =>
+    dispatch(requestReceipts(currentPage, filterText)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

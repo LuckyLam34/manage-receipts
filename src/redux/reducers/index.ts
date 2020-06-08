@@ -1,12 +1,12 @@
 import { IState } from '../../constants/interfaces';
 import { LOADING_FLAG, RECEIVE_RECEIPTS } from '../actions/action-types';
-import { RECEIVE_PAGE_INFO } from './../actions/action-types';
+import { RECEIVE_PAGE_INFO, SET_FILTER } from './../actions/action-types';
 
 const initialState: IState = {
   receipts: [],
   filter: '',
   loadingFlagGlobal: false,
-  currentPage: 0,
+  currentPage: 1,
   totalPages: 0,
 };
 
@@ -27,6 +27,11 @@ const reducers = (state = initialState, action: any) => {
         ...state,
         currentPage: action.data.currentPage,
         totalPages: action.data.totalPages,
+      };
+    case SET_FILTER:
+      return {
+        ...state,
+        filter: action.data,
       };
 
     default:
