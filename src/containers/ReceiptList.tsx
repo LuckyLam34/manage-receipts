@@ -20,7 +20,15 @@ export const ReceiptList = ({ receipts }: any) => (
               <h4>{item.title}</h4>
               <p>{item.description}</p>
             </div>
-            <div className="w-10"></div>
+            <div className="w-10">
+              <button
+                type="button"
+                // onClick={() => removeFridgeItem(fridgeItem.id)}
+                className="btn btn-danger delete btn-block"
+              >
+                <span>Delete</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

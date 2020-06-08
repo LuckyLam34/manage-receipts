@@ -3,6 +3,11 @@
 .receipt-list {
   .w-90 {
     width: 90%;
+    & > p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .w-10 {

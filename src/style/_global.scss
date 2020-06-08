@@ -1,12 +1,37 @@
-i.fa-sync-alt {
-    animation: spin 1s linear infinite;
-}
+@import './variables';
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+// i.fa-sync-alt {
+//   animation: spin 1s linear infinite;
+// }
+
+// @keyframes spin {
+//   0% {
+//     transform: rotate(0deg);
+//   }
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// }
+
+button.delete {
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: $borderRadius;
+  padding: 5px 10px;
+  border: 1px solid $borderColor;
+  background: linear-gradient(#dd4b39, #d14836);
+
+  &:hover {
+    border-color: $borderColorHover;
+    background: linear-gradient(#dd4b39, #c53727);
+  }
+
+  &:focus {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(#d74736, #ad2719);
+  }
+
+  & > span {
+    text-shadow: 0 1px 0 $dangerShadow;
+  }
 }

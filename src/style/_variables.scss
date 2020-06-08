@@ -6,8 +6,10 @@ $black: #282726;
 $green: #6a8a82;
 $yellow: #a37c27;
 $brown: #563838;
+
 $whiteText: #fff;
-$danger: #ec1325;
+$danger: #d94d3f;
+$dangerShadow: #c04131;
 $secondary: #6c757d;
 $secondaryHover: #5a6268;
 $primaryHover: #846520;
@@ -18,8 +20,9 @@ $successText: #28a745;
 /**
 Others
 */
-$borderRadius: 0.25rem;
-$borderColor: #ced4da;
+$borderRadius: 2px;
+$borderColor: #dd4b39;
+$borderColorHover: #af301f;
 $primaryBgColor: #dfdfdf;
 /**
 Break points
