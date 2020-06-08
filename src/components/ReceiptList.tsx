@@ -10,7 +10,12 @@ import { IReceipt } from '../constants/interfaces';
 //     return <div></div>;
 //   }
 // }
-export const ReceiptList = ({ receipts }: any) => (
+export const ReceiptList = ({
+  currentPage,
+  filter,
+  deleteReceipt,
+  receipts,
+}: any) => (
   <div>
     {receipts.map((item: IReceipt, idx: number) => (
       <div key={idx}>
@@ -23,7 +28,7 @@ export const ReceiptList = ({ receipts }: any) => (
             <div className="w-r">
               <button
                 type="button"
-                // onClick={() => removeFridgeItem(fridgeItem.id)}
+                onClick={() => deleteReceipt(item.id, currentPage, filter)}
                 className="btn btn-danger delete btn-block"
               >
                 <span>Delete</span>

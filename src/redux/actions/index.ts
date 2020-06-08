@@ -14,11 +14,30 @@ export const requestReceipts = (currentPage: number, filterText: string) => {
     RequestService.getReceipts(params)
       .then((res) => {
         const { currentPage, totalPages } = res;
-        console.log(filterText);
-        dispatch(setFilter(filterText));
-        dispatch(receivePageInfo({ currentPage, totalPages }));
-        dispatch(receiveReceipts(res.recipes));
-        console.log(res);
+
+        if (res.recipes.length === 0 && currentPage - 1 > 0) {
+          dispatch(requestReceipts(currentPage - 1, filterText));
+        } else {
+          dispatch(setFilter(filterText));
+          dispatch(receivePageInfo({ currentPage, totalPages }));
+          dispatch(receiveReceipts(res.recipes));
+          console.log(res);
+        }
+      })
+      .catch(() => dispatch(loading(false)))
+      .finally(() => dispatch(loading(false)));
+  };
+};
+
+export const deleteReceipt = (
+  id: number,
+  currentPage: number,
+  filterText: string
+) => {
+  return (dispatch: any) => {
+    RequestService.deleteReceipt(id)
+      .then((res) => {
+        dispatch(requestReceipts(currentPage, filterText));
       })
       .catch(() => dispatch(loading(false)))
       .finally(() => dispatch(loading(false)));
@@ -34,7 +53,7 @@ const getUrlWithParams = (obj: any) => {
     }
   }
 
-  return url ? `?${url.slice(1, url.length)}` : '';
+  return url ? `?${url.slice(1, url.length)}&pageSize=10` : '';
 };
 
 export const loading = (isLoading: boolean) => ({

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ReceiptList } from './components/ReceiptList';
 import { IState, IReceipt } from './constants/interfaces';
-import { requestReceipts } from './redux/actions';
+import { requestReceipts, deleteReceipt } from './redux/actions';
 import Filter from './containers/Filter';
 import { Paging } from './components/Paging';
 
@@ -13,6 +13,7 @@ interface ILocalProps {
   currentPage: number;
   totalPages: number;
   filter: string;
+  deleteReceipt: any;
 }
 
 class Main extends React.Component<ILocalProps, any> {
@@ -45,7 +46,7 @@ class Main extends React.Component<ILocalProps, any> {
             {!this.props.loadingFlagGlobal ? (
               <>
                 <Filter />
-                <ReceiptList receipts={this.props.receipts} />
+                <ReceiptList {...this.props} />
                 <Paging {...this.props} />
               </>
             ) : null}
@@ -72,6 +73,8 @@ const mapStateToProps = (state: IState) => {
 const mapDispatchToProps = (dispatch: any) => ({
   requestReceipts: (currentPage: number, filter: string) =>
     dispatch(requestReceipts(currentPage, filter)),
+  deleteReceipt: (id: number, currentPage: number, filterText: string) =>
+    dispatch(deleteReceipt(id, currentPage, filterText)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
